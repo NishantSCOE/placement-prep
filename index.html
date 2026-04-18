@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Placement Prep Checklist</title>
+<meta name="description" content="Automation & Robotics placement prep tracker for mechanical engineers"/>
+<meta name="theme-color" content="#0f0f0f"/>
+<link rel="manifest" href="data:application/json,{&quot;name&quot;:&quot;Placement Prep&quot;,&quot;short_name&quot;:&quot;PlacementPrep&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#0f0f0f&quot;,&quot;theme_color&quot;:&quot;#0f0f0f&quot;,&quot;start_url&quot;:&quot;.&quot;}"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0f0f0f;--surface:#1a1a1a;--surface2:#222;--border:#2a2a2a;--border2:#333;
+  --text:#f0f0f0;--muted:#888;--muted2:#555;
+  --green:#22c55e;--green-dim:#14532d;--green-bg:#052e16;
+  --amber:#f59e0b;--amber-dim:#78350f;
+  --blue:#60a5fa;--blue-dim:#1e3a5f;
+  --red:#f87171;--red-dim:#7f1d1d;
+  --purple:#a78bfa;--purple-dim:#3b0764;
+  --teal:#2dd4bf;--teal-dim:#134e4a;
+  --pink:#f472b6;--pink-dim:#831843;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:15px}
+body{display:flex;flex-direction:column;min-height:100vh}
+
+/* ── Topbar ── */
+.topbar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(15,15,15,0.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  height:56px;
+}
+.logo{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;color:var(--green);letter-spacing:0.05em}
+.logo span{color:var(--muted)}
+.top-right{display:flex;align-items:center;gap:12px}
+.pct-badge{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--green);background:var(--green-bg);border:1px solid var(--green-dim);padding:4px 10px;border-radius:6px}
+.reset-btn{font-size:12px;color:var(--muted);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s}
+.reset-btn:hover{color:var(--red);border-color:var(--red-dim)}
+
+/* ── Progress bar ── */
+.prog-wrap{height:3px;background:var(--border);position:sticky;top:56px;z-index:99}
+.prog-fill{height:3px;background:linear-gradient(90deg,var(--green),var(--teal));transition:width 0.5s cubic-bezier(.4,0,.2,1)}
+
+/* ── Layout ── */
+.layout{display:flex;flex:1;min-height:0}
+.sidebar{
+  width:220px;flex-shrink:0;
+  border-right:1px solid var(--border);
+  padding:1.2rem 0;
+  position:sticky;top:59px;height:calc(100vh - 59px);overflow-y:auto;
+}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+.nav-label{font-size:10px;letter-spacing:0.1em;color:var(--muted2);text-transform:uppercase;padding:0 1.2rem;margin-bottom:6px;font-family:'IBM Plex Mono',monospace}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 1.2rem;cursor:pointer;
+  border-left:2px solid transparent;
+  transition:all 0.15s;font-size:13px;color:var(--muted);
+}
+.nav-item:hover{color:var(--text);background:var(--surface)}
+.nav-item.active{color:var(--text);border-left-color:var(--accent, var(--green));background:var(--surface)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--accent,var(--green));flex-shrink:0}
+.nav-count{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted2)}
+.nav-sep{height:1px;background:var(--border);margin:10px 1.2rem}
+
+/* ── Main ── */
+.main{flex:1;overflow-y:auto;padding:2rem 2.5rem}
+.main::-webkit-scrollbar{width:6px}
+.main::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+
+/* ── Stats row ── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:2rem}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.stat-num{font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:500}
+.stat-label{font-size:11px;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:0.05em}
+.stat-card.green .stat-num{color:var(--green)}
+.stat-card.amber .stat-num{color:var(--amber)}
+.stat-card.blue .stat-num{color:var(--blue)}
+.stat-card.purple .stat-num{color:var(--purple)}
+
+/* ── Category header ── */
+.cat-header{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem}
+.cat-title{font-size:22px;font-weight:600}
+.cat-pill{font-size:11px;padding:3px 10px;border-radius:20px;font-family:'IBM Plex Mono',monospace}
+.cat-progress{font-size:13px;color:var(--muted);margin-left:auto}
+
+/* ── Section ── */
+.section{margin-bottom:2rem}
+.sec-title{
+  font-size:11px;text-transform:uppercase;letter-spacing:0.1em;
+  color:var(--muted2);font-family:'IBM Plex Mono',monospace;
+  padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:10px;
+}
+.items{display:flex;flex-direction:column;gap:3px}
+
+/* ── Item ── */
+.item{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:10px 12px;border-radius:8px;cursor:pointer;
+  border:1px solid transparent;transition:all 0.12s;
+}
+.item:hover{background:var(--surface);border-color:var(--border)}
+.item.done{opacity:0.55}
+.item.done .item-text{text-decoration:line-through;color:var(--muted)}
+.cb{
+  width:18px;height:18px;border-radius:4px;
+  border:1.5px solid var(--border2);flex-shrink:0;margin-top:1px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.15s;
+}
+.item.done .cb{border-color:var(--green);background:var(--green)}
+.cb-check{display:none;color:#000;font-size:11px;font-weight:800;line-height:1}
+.item.done .cb-check{display:block}
+.item-text{font-size:14px;line-height:1.5;flex:1}
+.badge{
+  display:inline-block;font-size:10px;padding:2px 7px;
+  border-radius:10px;margin-left:8px;vertical-align:middle;
+  font-family:'IBM Plex Mono',monospace;white-space:nowrap;flex-shrink:0;margin-top:2px;
+}
+.b-h{background:#052e16;color:#4ade80;border:1px solid #14532d}
+.b-m{background:#451a03;color:#fbbf24;border:1px solid #78350f}
+.b-l{background:#0c1a2e;color:#93c5fd;border:1px solid #1e3a5f}
+
+/* ── Cat hidden ── */
+.cat-view{display:none}
+.cat-view.active{display:block}
+
+/* ── Empty state ── */
+.done-state{text-align:center;padding:3rem;color:var(--muted)}
+.done-state .big{font-size:40px;margin-bottom:12px}
+.done-state p{font-size:15px}
+
+/* ── Mobile ── */
+.mob-tabs{display:none}
+@media(max-width:768px){
+  .sidebar{display:none}
+  .main{padding:1rem}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .mob-tabs{
+    display:flex;overflow-x:auto;gap:6px;
+    padding:10px 1rem;border-bottom:1px solid var(--border);
+    position:sticky;top:59px;z-index:98;background:var(--bg);
+  }
+  .mob-tabs::-webkit-scrollbar{display:none}
+  .mob-tab{
+    flex-shrink:0;padding:6px 14px;border-radius:20px;
+    font-size:12px;cursor:pointer;border:1px solid var(--border2);
+    background:var(--surface);color:var(--muted);white-space:nowrap;
+    font-family:'Inter',sans-serif;
+  }
+  .mob-tab.active{background:var(--green-bg);border-color:var(--green-dim);color:var(--green)}
+  .topbar{padding:0 1rem}
+}
+
+/* ── Scrollbar global ── */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">placement<span>/</span>prep</div>
+  <div class="top-right">
+    <div class="pct-badge" id="topPct">0%</div>
+    <button class="reset-btn" onclick="resetAll()">Reset all</button>
+  </div>
+</div>
+<div class="prog-wrap"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+
+<div class="mob-tabs" id="mobTabs"></div>
+
+<div class="layout">
+  <div class="sidebar" id="sidebar"></div>
+  <div class="main" id="main">
+    <div class="stats">
+      <div class="stat-card green"><div class="stat-num" id="sDone">0</div><div class="stat-label">Completed</div></div>
+      <div class="stat-card amber"><div class="stat-num" id="sLeft">0</div><div class="stat-label">Remaining</div></div>
+      <div class="stat-card blue"><div class="stat-num" id="sTotal">0</div><div class="stat-label">Total topics</div></div>
+      <div class="stat-card purple"><div class="stat-num" id="sPct">0%</div><div class="stat-label">Progress</div></div>
+    </div>
+    <div id="catViews"></div>
+  </div>
+</div>
+
+<script>
+const CATS = [
+  {
+    id:'matlab', label:'MATLAB', color:'#22c55e', accent:'--green',
+    sections:[
+      {title:'Fundamentals', items:[
+        {t:'Matrix operations, loops, functions, plotting',p:'h'},
+        {t:'Scripts vs functions, debugging, file I/O',p:'h'},
+        {t:'MathWorks MATLAB Onramp certificate (free — matlabacademy.mathworks.com)',p:'h'},
+      ]},
+      {title:'Simulink + Control Systems', items:[
+        {t:'Build block diagrams, simulate dynamic systems',p:'h'},
+        {t:'PID controller design and tuning in Simulink',p:'h'},
+        {t:'Transfer functions, Bode plots, root locus',p:'h'},
+        {t:'MathWorks Simulink Onramp certificate (free)',p:'h'},
+        {t:'MathWorks Control Design Onramp certificate (free)',p:'h'},
+        {t:'Project: DC motor speed control in Simulink',p:'h'},
+        {t:'Project: Pendulum stabilization using LQR/PID',p:'m'},
+      ]},
+      {title:'Robotics Toolbox', items:[
+        {t:'Forward & Inverse Kinematics using Robotics System Toolbox',p:'m'},
+        {t:'Trajectory planning, Jacobians in MATLAB',p:'m'},
+        {t:'Peter Corke Robotics Toolbox (free download)',p:'m'},
+        {t:'Project: Simulate a 2-DOF or 3-DOF robot arm',p:'m'},
+      ]},
+      {title:'Signal Processing Basics', items:[
+        {t:'MathWorks Signal Processing Onramp certificate (free)',p:'m'},
+        {t:'Filtering sensor signals in MATLAB',p:'m'},
+        {t:'FFT analysis on a sample signal',p:'l'},
+      ]},
+    ]
+  },
+  {
+    id:'python', label:'Python', color:'#60a5fa', accent:'--blue',
+    sections:[
+      {title:'Fundamentals', items:[
+        {t:'Variables, data types, loops, conditionals',p:'h'},
+        {t:'Functions, modules, file handling',p:'h'},
+        {t:'OOP basics — classes and objects',p:'h'},
+        {t:'CS50P (Harvard, free) or Automate the Boring Stuff (free online book)',p:'h'},
+      ]},
+      {title:'Data Handling', items:[
+        {t:'NumPy — arrays, matrix operations (similar to MATLAB)',p:'h'},
+        {t:'Pandas — CSV reading, filtering, data cleaning',p:'h'},
+        {t:'Matplotlib / Seaborn — plotting and visualization',p:'h'},
+        {t:'Project: Sensor data analyzer and plotter from CSV',p:'h'},
+        {t:'Project: Compare two datasets on a single graph',p:'m'},
+      ]},
+      {title:'Task Automation', items:[
+        {t:'os / shutil — file/folder batch operations, batch renaming',p:'m'},
+        {t:'openpyxl — read/write Excel files automatically',p:'m'},
+        {t:'schedule / time — run scripts at timed intervals',p:'m'},
+        {t:'pyautogui — GUI automation basics',p:'m'},
+        {t:'requests + BeautifulSoup — basic web scraping',p:'l'},
+        {t:'Project: Auto-report generator from Excel',p:'m'},
+      ]},
+      {title:'Python for Robotics', items:[
+        {t:'OpenCV — image processing, object detection, camera feeds',p:'h'},
+        {t:'PySerial — communicate with Arduino/sensors over serial',p:'m'},
+        {t:'ROS 2 with Python (rclpy) — basic publisher/subscriber node',p:'m'},
+        {t:'Project: Real-time object color detection with webcam',p:'h'},
+        {t:'Project: Arduino LED control via Python + PySerial',p:'m'},
+        {t:'Project: Basic ROS 2 simulation node',p:'m'},
+      ]},
+      {title:'Basic Machine Learning', items:[
+        {t:'Supervised vs unsupervised — regression, classification, clustering concepts',p:'h'},
+        {t:'Train/test split, overfitting, accuracy metrics',p:'h'},
+        {t:'scikit-learn: Linear Regression, Logistic Regression',p:'h'},
+        {t:'scikit-learn: Decision Trees, Random Forest',p:'h'},
+        {t:'scikit-learn: K-Means Clustering, model evaluation',p:'h'},
+        {t:'Kaggle ML with Python course + certificate (free)',p:'h'},
+        {t:'Project: Machine fault prediction from sensor CSV (vibration, temperature)',p:'h'},
+        {t:'Keras/TensorFlow: Simple neural network on MNIST dataset',p:'l'},
+      ]},
+    ]
+  },
+  {
+    id:'plc', label:'PLC / SCADA / HMI', color:'#a78bfa', accent:'--purple',
+    sections:[
+      {title:'PLC — Siemens TIA Portal (highest priority)', items:[
+        {t:'Ladder Logic — contacts, coils, timers, counters',p:'h'},
+        {t:'Function Block Diagram (FBD) basics',p:'h'},
+        {t:'Structured Text (ST) — similar to programming languages',p:'m'},
+        {t:'Analog I/O handling, data blocks, memory areas',p:'h'},
+        {t:'Download TIA Portal trial and simulate a working program',p:'h'},
+        {t:'Resource: RealPars YouTube channel (best beginner PLC tutorials)',p:'h'},
+        {t:'Resource: PLCProfessor.com free structured course',p:'h'},
+      ]},
+      {title:'SCADA', items:[
+        {t:'Tags, alarms, trending, historian data — core concepts',p:'h'},
+        {t:'Siemens WinCC basics (integrated with TIA Portal)',p:'m'},
+        {t:'Ignition SCADA free trial — modern web-based platform',p:'m'},
+        {t:'Ignition University SCADA certificate (free)',p:'m'},
+        {t:'Communication protocols awareness: Modbus, OPC-UA, Profinet, Profibus',p:'h'},
+      ]},
+      {title:'HMI + VFD Drives', items:[
+        {t:'HMI screen design, alarm displays, operator navigation',p:'m'},
+        {t:'Linking HMI tags to PLC data blocks',p:'m'},
+        {t:'VFD basics — how varying frequency controls motor speed',p:'h'},
+        {t:'VFD integration with PLC via Profinet/Modbus (concept level)',p:'m'},
+        {t:'Popular brands: Siemens SINAMICS, ABB ACS, Danfoss awareness',p:'m'},
+      ]},
+      {title:'Collaborative Robot Simulator', items:[
+        {t:'Universal Robots URSim — download free cobot simulator',p:'h'},
+        {t:'Universal Robots Academy — free online course + certificate',p:'h'},
+        {t:'Basic cobot programming — waypoints, grippers, safety zones',p:'m'},
+        {t:'ABB RobotStudio or KUKA.Sim basics (optional, good bonus)',p:'l'},
+      ]},
+      {title:'Other Software', items:[
+        {t:'AutoCAD Electrical — electrical panel layouts, wiring diagrams',p:'m'},
+        {t:'Understanding single-line diagrams and P&ID drawings',p:'m'},
+        {t:'EPLAN basics awareness (used in large automation projects)',p:'l'},
+      ]},
+    ]
+  },
+  {
+    id:'theory', label:'Theory Subjects', color:'#f59e0b', accent:'--amber',
+    sections:[
+      {title:'Control Systems — Core Foundation', items:[
+        {t:'Open loop vs closed loop — real examples (AC, cruise control, thermostat)',p:'h'},
+        {t:'Transfer functions and block diagram representation',p:'h'},
+        {t:'Time domain response — rise time, settling time, overshoot, steady-state error',p:'h'},
+        {t:'Stability analysis — Routh-Hurwitz criterion',p:'h'},
+        {t:'Frequency domain — Bode plots, gain margin, phase margin',p:'h'},
+        {t:'Root locus — how closed-loop poles move as gain changes',p:'h'},
+        {t:'State space representation and basics of modern control',p:'m'},
+        {t:'Watch: Brian Douglas Control Systems YouTube series (best resource)',p:'h'},
+        {t:'NPTEL Control Systems lectures — IIT faculty (free)',p:'m'},
+      ]},
+      {title:'PID Control — Know This Deeply', items:[
+        {t:'What P, I, D each do physically — not just mathematically',p:'h'},
+        {t:'Effect of increasing each gain on system response',p:'h'},
+        {t:'Ziegler-Nichols tuning method',p:'h'},
+        {t:'Practical issues — integral windup, derivative kick, noise sensitivity',p:'h'},
+        {t:'How PID is implemented in discrete time in a PLC',p:'m'},
+        {t:'Cascade PID concept — one PID output feeding another',p:'m'},
+      ]},
+      {title:'Industrial Automation Fundamentals', items:[
+        {t:'Automation hierarchy — Purdue model (field level to enterprise level)',p:'h'},
+        {t:'Fixed vs programmable vs flexible automation — when each is used',p:'h'},
+        {t:'Sensors — proximity, pressure, temperature, flow, encoder working principles',p:'h'},
+        {t:'Actuators — pneumatic, hydraulic, electric — pros, cons, selection',p:'h'},
+        {t:'Signal types — 4-20mA, 0-10V, RTD, thermocouple, digital I/O',p:'h'},
+        {t:'Why 4-20mA is preferred over 0-10V (fault tolerance explanation)',p:'h'},
+        {t:'Safety systems — E-stop, interlocks, safety PLC, SIL levels awareness',p:'m'},
+      ]},
+      {title:'Electrical Machines and Drives', items:[
+        {t:'DC motors — speed-torque characteristics, armature control, field control',p:'h'},
+        {t:'Induction motors — working principle, slip, why used in industry',p:'h'},
+        {t:'Stepper motors vs servo motors — difference and when to use each',p:'h'},
+        {t:'VFD working principle — V/f control basics, how frequency controls speed',p:'h'},
+        {t:'Encoder feedback — how position and speed are measured in servo systems',p:'h'},
+      ]},
+      {title:'Robotics Fundamentals', items:[
+        {t:'Degrees of Freedom (DOF) — what it means for different robot types',p:'h'},
+        {t:'Forward Kinematics — given joint angles, find end effector position',p:'h'},
+        {t:'Inverse Kinematics — given end effector position, find joint angles',p:'h'},
+        {t:'Denavit-Hartenberg (DH) parameters — standard robot geometry description',p:'m'},
+        {t:'Jacobian matrix — joint velocity to end effector velocity relationship',p:'m'},
+        {t:'Trajectory planning — joint space vs Cartesian space',p:'m'},
+        {t:'Robot types — articulated, SCARA, delta, Cartesian, collaborative (cobot)',p:'h'},
+      ]},
+      {title:'Signals and Systems', items:[
+        {t:'Laplace transform — how it converts differential equations to algebra',p:'h'},
+        {t:'Fourier transform — frequency content of signals concept',p:'m'},
+        {t:'Nyquist sampling theorem — why it matters for digital control',p:'m'},
+        {t:'Low pass and high pass filters — why sensor signals need filtering',p:'h'},
+        {t:'Z-transform basics — discrete time systems and PLCs',p:'l'},
+      ]},
+      {title:'Fluid Power (Pneumatics and Hydraulics)', items:[
+        {t:"Pascal's law and hydraulic system applications",p:'m'},
+        {t:'Pneumatic cylinder types — single acting vs double acting',p:'m'},
+        {t:'Directional control valves — 2/2, 3/2, 5/2 valve symbols and operation',p:'m'},
+        {t:'When to use pneumatics vs hydraulics vs electric actuators',p:'h'},
+      ]},
+      {title:'Electronics and Instrumentation', items:[
+        {t:'ADC/DAC — how analog sensor signals become digital values in PLCs',p:'h'},
+        {t:'Signal conditioning — amplification and filtering of raw signals',p:'h'},
+        {t:'4-20mA current loop working — why it is fault-tolerant (critical interview topic)',p:'h'},
+        {t:'Instrumentation terms — accuracy, precision, resolution, calibration, hysteresis',p:'h'},
+        {t:'Op-amp basics — signal amplification and comparator circuits',p:'m'},
+      ]},
+    ]
+  },
+  {
+    id:'ot', label:'OT Security', color:'#f87171', accent:'--red',
+    sections:[
+      {title:'Free Courses and Certificates', items:[
+        {t:'CISA ICS-100: Introduction to ICS Security (free, most credible globally)',p:'h'},
+        {t:'CISA ICS-200: ICS Security for Control System Professionals (free)',p:'h'},
+        {t:'Fortinet NSE 1 — Information Security Awareness (free, ~1 hr)',p:'h'},
+        {t:'Fortinet NSE 2 — The Evolution of Cybersecurity (free, ~1 hr)',p:'h'},
+        {t:'Fortinet NSE 3 — Fortinet Security Portfolio (free, ~1 hr)',p:'h'},
+        {t:'Claroty Academy — OT Security Fundamentals (free certificate)',p:'m'},
+        {t:'Ignition University — SCADA security content (free)',p:'l'},
+      ]},
+      {title:'Key Concepts to Know for Interviews', items:[
+        {t:'Purdue Model — all 5 levels and why each needs different security approach',p:'h'},
+        {t:'IT vs OT security — priority (CIA vs AIC), patching, downtime, lifespan differences',p:'h'},
+        {t:'OT protocols knowledge — Modbus, Profinet, DNP3, OPC-UA, EtherNet/IP',p:'h'},
+        {t:'Network segmentation — DMZ between IT and OT networks',p:'h'},
+        {t:'Air gapping — physically isolating OT networks concept',p:'m'},
+        {t:'Defense in depth — multiple security layers in industrial environments',p:'m'},
+        {t:'ISA/IEC 62443 standard — what it is and why it matters',p:'m'},
+        {t:'Famous attacks: Stuxnet, TRITON/TRISIS, Colonial Pipeline (case studies)',p:'m'},
+        {t:'Read Dragos or Claroty annual OT threat report PDF (free, real-world context)',p:'m'},
+      ]},
+    ]
+  },
+  {
+    id:'aptitude', label:'Aptitude', color:'#22c55e', accent:'--green',
+    sections:[
+      {title:'Quantitative Aptitude', items:[
+        {t:'Number system, HCF, LCM, divisibility rules',p:'h'},
+        {t:'Percentages, profit and loss, discounts',p:'h'},
+        {t:'Simple interest and compound interest',p:'h'},
+        {t:'Ratios, proportions, mixtures and alligation',p:'h'},
+        {t:'Time-speed-distance problems',p:'h'},
+        {t:'Time and work, pipes and cisterns',p:'h'},
+        {t:'Permutations, combinations, probability basics',p:'h'},
+        {t:'Data interpretation — tables, bar charts, pie charts, line graphs',p:'h'},
+        {t:'RS Aggarwal Quantitative Aptitude book (standard reference)',p:'h'},
+      ]},
+      {title:'Logical Reasoning', items:[
+        {t:'Number series and letter series completion',p:'h'},
+        {t:'Coding-decoding problems',p:'h'},
+        {t:'Blood relations',p:'h'},
+        {t:'Syllogisms — statements and conclusions',p:'h'},
+        {t:'Puzzles and seating arrangements',p:'h'},
+        {t:'Direction sense problems',p:'h'},
+        {t:'Clocks and calendars',p:'m'},
+        {t:'Cubes and dice basics',p:'m'},
+      ]},
+      {title:'Verbal Ability', items:[
+        {t:'Reading comprehension — practice 2-3 passages daily',p:'h'},
+        {t:'Grammar — sentence correction and error spotting',p:'h'},
+        {t:'Vocabulary — synonyms, antonyms, fill in the blanks',p:'m'},
+        {t:'Para jumbles and sentence ordering',p:'m'},
+        {t:'One-word substitution, idioms basics',p:'l'},
+      ]},
+      {title:'Practice Resources', items:[
+        {t:'IndiaBIX.com — free topic-wise practice (best for campus placements)',p:'h'},
+        {t:'Previous year placement papers of your target companies',p:'h'},
+        {t:'Mock aptitude tests — take one full test per week',p:'h'},
+        {t:'TIME or Career Launcher test series (if budget allows)',p:'l'},
+      ]},
+    ]
+  },
+  {
+    id:'comm', label:'Communication', color:'#2dd4bf', accent:'--teal',
+    sections:[
+      {title:'Spoken English and Fluency', items:[
+        {t:'Speak in English for at least 30 minutes daily — out loud, not in your head',p:'h'},
+        {t:'Record yourself answering HR questions — review accent, pace, clarity',p:'h'},
+        {t:'Watch BBC Learning English or VOA Learning English daily',p:'m'},
+        {t:'Eliminate filler words — um, like, basically, actually, you know',p:'h'},
+        {t:'Read English newspapers or articles aloud — 10 min/day',p:'m'},
+      ]},
+      {title:'Interview Communication', items:[
+        {t:'Prepare a strong 2-minute self-introduction — memorize and practice it',p:'h'},
+        {t:'STAR method — Situation, Task, Action, Result for HR behavioral questions',p:'h'},
+        {t:'Practice explaining your projects simply in 2-3 sentences each',p:'h'},
+        {t:'Know why you want THIS specific company and THIS specific role',p:'h'},
+        {t:'Practice mock interviews — with friends, camera, or mirror',p:'h'},
+        {t:'Prepare answers for top 20 HR questions (tell me about yourself, strengths, etc.)',p:'h'},
+      ]},
+      {title:'Technical Communication', items:[
+        {t:'Explain what PID control is to a non-engineer in 1 minute — practice this',p:'h'},
+        {t:'Explain what SCADA does in 3 sentences — practice this',p:'h'},
+        {t:'Explain your best project clearly: problem, approach, result',p:'h'},
+        {t:'Write a clean LinkedIn summary about your skills and projects',p:'m'},
+        {t:'Build a GitHub profile with proper project READMEs',p:'h'},
+      ]},
+      {title:'Written Communication', items:[
+        {t:'Professional email format — subject, greeting, body, sign-off',p:'m'},
+        {t:'Resume — 1 page, clean, ATS-friendly format, no photo needed',p:'h'},
+        {t:'Resume action verbs — built, designed, simulated, automated, analyzed',p:'h'},
+        {t:'Cover letter basics for automation and robotics roles',p:'m'},
+      ]},
+      {title:'Group Discussion and Soft Skills', items:[
+        {t:'GD practice — how to initiate, contribute, and summarize well',p:'m'},
+        {t:'Body language — eye contact, upright posture, confident handshake',p:'h'},
+        {t:'Listening skills — do not interrupt, acknowledge others points',p:'h'},
+        {t:'Mock stress interview practice — stay calm under pressure questions',p:'h'},
+      ]},
+    ]
+  },
+];
+
+const STORAGE_KEY = 'placement_checklist_v1';
+let checked = {};
+let activeCat = CATS[0].id;
+
+function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(checked)); }
+function load(){
+  try{ const d = localStorage.getItem(STORAGE_KEY); if(d) checked = JSON.parse(d); }
+  catch(e){ checked = {}; }
+}
+function resetAll(){
+  if(!confirm('Reset ALL progress? This cannot be undone.')) return;
+  checked = {}; save(); renderAll();
+}
+function totalItems(){ return CATS.reduce((a,c)=>a+c.sections.reduce((b,s)=>b+s.items.length,0),0); }
+function doneItems(){ return Object.values(checked).filter(Boolean).length; }
+function catDone(cat){ return cat.sections.reduce((a,s)=>a+s.items.filter((_,i)=>checked[cat.id+'__'+s.title+'__'+i]).length,0); }
+function catTotal(cat){ return cat.sections.reduce((a,s)=>a+s.items.length,0); }
+
+function updateStats(){
+  const total=totalItems(), done=doneItems(), left=total-done, pct=total?Math.round(done/total*100):0;
+  document.getElementById('sDone').textContent=done;
+  document.getElementById('sLeft').textContent=left;
+  document.getElementById('sTotal').textContent=total;
+  document.getElementById('sPct').textContent=pct+'%';
+  document.getElementById('topPct').textContent=pct+'%';
+  document.getElementById('progFill').style.width=pct+'%';
+}
+
+function renderSidebar(){
+  const sb=document.getElementById('sidebar');
+  sb.innerHTML='<div class="nav-label">Categories</div>';
+  CATS.forEach(cat=>{
+    const done=catDone(cat), total=catTotal(cat);
+    const el=document.createElement('div');
+    el.className='nav-item'+(cat.id===activeCat?' active':'');
+    el.style.setProperty('--accent', cat.color);
+    el.innerHTML=`<div class="nav-dot" style="background:${cat.color}"></div><span>${cat.label}</span><span class="nav-count">${done}/${total}</span>`;
+    el.onclick=()=>{ activeCat=cat.id; renderSidebar(); renderMobTabs(); showCat(cat.id); };
+    sb.appendChild(el);
+  });
+}
+
+function renderMobTabs(){
+  const wrap=document.getElementById('mobTabs');
+  wrap.innerHTML='';
+  CATS.forEach(cat=>{
+    const btn=document.createElement('button');
+    btn.className='mob-tab'+(cat.id===activeCat?' active':'');
+    btn.textContent=cat.label;
+    btn.onclick=()=>{ activeCat=cat.id; renderSidebar(); renderMobTabs(); showCat(cat.id); };
+    wrap.appendChild(btn);
+  });
+}
+
+function showCat(id){
+  document.querySelectorAll('.cat-view').forEach(el=>el.classList.remove('active'));
+  const el=document.getElementById('view-'+id);
+  if(el) el.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function renderCatViews(){
+  const container=document.getElementById('catViews');
+  container.innerHTML='';
+  CATS.forEach(cat=>{
+    const view=document.createElement('div');
+    view.className='cat-view'+(cat.id===activeCat?' active':'');
+    view.id='view-'+cat.id;
+
+    const header=document.createElement('div');
+    header.className='cat-header';
+    const done=catDone(cat), total=catTotal(cat);
+    header.innerHTML=`
+      <div class="cat-title" style="color:${cat.color}">${cat.label}</div>
+      <div class="cat-pill" style="background:${cat.color}22;color:${cat.color};border:1px solid ${cat.color}44">${done}/${total} done</div>
+    `;
+    view.appendChild(header);
+
+    cat.sections.forEach(sec=>{
+      const secEl=document.createElement('div');
+      secEl.className='section';
+      secEl.innerHTML=`<div class="sec-title">${sec.title}</div>`;
+      const itemsEl=document.createElement('div');
+      itemsEl.className='items';
+      sec.items.forEach((item,i)=>{
+        const key=cat.id+'__'+sec.title+'__'+i;
+        const row=document.createElement('div');
+        row.className='item'+(checked[key]?' done':'');
+        const bClass=item.p==='h'?'b-h':item.p==='m'?'b-m':'b-l';
+        const bText=item.p==='h'?'must know':item.p==='m'?'should know':'good to know';
+        row.innerHTML=`<div class="cb"><span class="cb-check">✓</span></div><span class="item-text">${item.t}<span class="badge ${bClass}">${bText}</span></span>`;
+        row.onclick=()=>{
+          checked[key]=!checked[key];
+          row.classList.toggle('done');
+          save(); updateStats(); renderSidebar(); renderMobTabs();
+          const hdr=document.getElementById('hdr-'+cat.id);
+          if(hdr){ const d2=catDone(cat),t2=catTotal(cat); hdr.querySelector('.cat-pill').textContent=d2+'/'+t2+' done'; }
+        };
+        itemsEl.appendChild(row);
+      });
+      secEl.appendChild(itemsEl);
+      view.appendChild(secEl);
+    });
+    container.appendChild(view);
+  });
+}
+
+function renderAll(){
+  renderSidebar();
+  renderMobTabs();
+  renderCatViews();
+  updateStats();
+}
+
+load();
+renderAll();
+</script>
+</body>
+</html>
